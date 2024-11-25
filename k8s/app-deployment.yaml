@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fiap-burger-rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fiap-burger-rabbitmq
+  template:
+    metadata:
+      labels:
+        app: fiap-burger-rabbitmq
+    spec:
+      containers:
+        - name: fiap-burger-rabbitmq
+          image: gm50x/rabbitmq:3-management-delayed
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: fiap-burger-rabbitmq
+          ports:
+            - name: http
+              containerPort: 15672
+            - name: amqp
+              containerPort: 5672
+          resources:
+            requests:
+              cpu: 200m
+              memory: "256Mi"
+            limits:
+              cpu: 450m
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fiap-burger-rabbitmq-srv
+spec:
+  selector:
+    app: fiap-burger-rabbitmq
+  type: ClusterIP
+  ports:
+    - name: amqp
+      protocol: TCP
+      port: 5672
+      targetPort: 5672
+    - name: http
+      protocol: TCP
+      port: 15672
+      targetPort: 15672
