@@ -1,4 +1,4 @@
-name: FiapBurgerRabbitMQ - CICD
+name: FiapXRabbitmq - CICD
 
 on:
   push:
