@@ -2,24 +2,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fiap-burger-rabbitmq
+  name: fiap-x-rabbitmq
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fiap-burger-rabbitmq
+      app: fiap-x-rabbitmq
   template:
     metadata:
       labels:
-        app: fiap-burger-rabbitmq
+        app: fiap-x-rabbitmq
     spec:
       containers:
-        - name: fiap-burger-rabbitmq
+        - name: fiap-x-rabbitmq
           image: gm50x/rabbitmq:3-management-delayed
           imagePullPolicy: Always
           envFrom:
             - secretRef:
-                name: fiap-burger-rabbitmq
+                name: fiap-x-rabbitmq
           ports:
             - name: http
               containerPort: 15672
@@ -36,10 +36,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: fiap-burger-rabbitmq-srv
+  name: fiap-x-rabbitmq-srv
 spec:
   selector:
-    app: fiap-burger-rabbitmq
+    app: fiap-x-rabbitmq
   type: ClusterIP
   ports:
     - name: amqp

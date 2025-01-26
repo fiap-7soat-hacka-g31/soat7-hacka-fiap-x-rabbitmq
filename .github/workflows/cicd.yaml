@@ -49,7 +49,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Configure Kubectl
-        run: aws eks update-kubeconfig --name fiap-burger-k8s
+        run: aws eks update-kubeconfig --name fiap-x-k8s
 
       - name: Configure Secrets
         run: |
@@ -59,4 +59,4 @@ jobs:
       - name: Apply K8S
         run: |
           kubectl apply -f k8s/app-deployment.yaml
-          kubectl rollout restart deployment/fiap-burger-rabbitmq
+          kubectl rollout restart deployment/fiap-x-rabbitmq
